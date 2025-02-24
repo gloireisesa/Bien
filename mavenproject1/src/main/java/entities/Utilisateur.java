@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 
 /**
  *
@@ -17,7 +18,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name="utilisateur")
-public class Utilisateur {
+public class Utilisateur implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
