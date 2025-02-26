@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/J2EE/EJB40/StatelessEjbClass.java to edit this template
- */
+
 package business;
 
 import entities.Utilisateur;
@@ -30,7 +27,18 @@ public class UtilisateurEntrepriseBean {
         Utilisateur utilisateur = new Utilisateur(username, email, hashedPassword, description);
         em.persist(utilisateur);
     }
-    public boolean verifierMotDePasse(String password, String hashedPassword) { return BCrypt.checkpw(password, hashedPassword); }  
+    public boolean verifierMotDePasse(String password, String hashedPassword) { return BCrypt.checkpw(password, hashedPassword); } 
+    
+    
+   public Utilisateur authentifier(String email, String password){
+        Utilisateur user = trouverUtilisateurParEmail(email);
+        
+        if(user != null && verifierMotDePasse(password, user.getPassword())){
+            return user;
+        }
+        
+        return null;
+    }
 
     public List<Utilisateur> listerTousLesUtilisateurs() {
         return em.createQuery("SELECT u FROM Utilisateur u", Utilisateur.class).getResultList();
@@ -58,6 +66,11 @@ public class UtilisateurEntrepriseBean {
             em.remove(utilisateur);
         }
     }
+    
+    @Transactional
+    public void mettreAJourUtilisateur(Utilisateur utilisateur) {
+        em.merge(utilisateur);
+    }
 
     public Utilisateur trouverUtilisateurParId(Long id) {
         return em.find(Utilisateur.class, id);
@@ -71,5 +84,5 @@ public class UtilisateurEntrepriseBean {
         } catch (Exception e) {
             return null;
         }
-    }
+    }  
 }

@@ -22,13 +22,27 @@
         <h4 class="mb-2">Bienvenu en Indonesie</h4>
 
         <h:form>
-          
-
-            <!-- Bouton Commencer -->
-            <h:commandButton value="Découvrir" action="home" 
-                             styleClass="btn btn-danger w-100"/>
             
-           <h:link value="Créer un compte" outcome="ajoute_utilisateur" />
+             <div class="mb-3">
+                <h:outputLabel for="email" value="Email :" class="form-label"/>
+                <h:inputText id="email" value="#{welcomeBean.email}" class="form-control" required="true" requiredMessage="Entrez votre mail!"/>
+                 <h:message for="email" style="color: red;"/>
+            </div>
+            
+            <div class="mb-3">
+                <h:outputLabel for="password" value="Mot de passe :" class="form-label"/>
+                <h:inputSecret id="password" value="#{welcomeBean.password}" class="form-control" required="true" requiredMessage="entrez votre mot de passe!"/>
+                <h:message for="password" style="color: red;"/>
+            </div>
+            
+            <h:messages globalOnly="true" style="color: red;"/>
+            <br/>
+            <!-- Bouton unique pour l'authentification -->
+            <h:commandButton value="Découvrir" action="#{welcomeBean.sAuthentifier}"
+                     styleClass="btn btn-secondary w-100 p-3"/>
+         
+            
+            <h:link value="Créer un compte" outcome="ajoute_utilisateur.xhtml"/>
         </h:form>
 
     

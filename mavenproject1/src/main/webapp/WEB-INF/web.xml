@@ -11,14 +11,24 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+             <filter-name>SessionControlFilter</filter-name>
+             <filter-class>business.SessionControlFilter</filter-class>
+     </filter>
+        <!-- Mapping des URL vers le filtre SessionControlFilter  -->
+       <filter-mapping>
+           <filter-name>SessionControlFilter</filter-name>
+           <url-pattern>/pages/*</url-pattern>
+       </filter-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>faces/index.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

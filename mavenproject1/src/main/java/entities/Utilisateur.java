@@ -40,6 +40,32 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    
+    
+
     public Utilisateur(String username, String email, String password, String description) {
         this.username = username;
         this.email = email;
