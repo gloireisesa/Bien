@@ -24,12 +24,18 @@ public class SessionManager {
         }
         return null;
     }
+    
+    
 
     public void invalidateSession() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
         if (session != null) {
             session.invalidate();
         }
+    }
+
+    public Long getIdUtilisateurConnecte() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

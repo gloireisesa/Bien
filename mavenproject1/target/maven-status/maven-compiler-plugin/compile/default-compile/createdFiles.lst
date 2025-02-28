@@ -1,4 +1,5 @@
 beans\UtilisateurBean.class
+business\VisiteEntrepriseBean.class
 entities\Lieu.class
 beans\CurrencyConverterBean.class
 business\SessionControlFilter.class
@@ -6,8 +7,10 @@ beans\welcomeBean.class
 beans\NavigationBean.class
 business\UtilisateurEntrepriseBean.class
 business\LieuEntrepriseBean.class
+entities\Visite.class
 beans\ProfilBean.class
 beans\LieuBean.class
 business\SessionManager.class
 welcomeBean\java.class
+beans\VisiteBean.class
 entities\Utilisateur.class

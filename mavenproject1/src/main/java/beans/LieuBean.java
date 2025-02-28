@@ -5,6 +5,12 @@ import entities.Lieu;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.MediaType;
 import java.io.Serializable;
 import java.util.List;
 
@@ -16,10 +22,18 @@ public class LieuBean implements Serializable {
     private String description;
     private double latitude;
     private double longitude;
+    private String weatherMessage;
+    private int selectedLieu;
 
     @Inject
     private LieuEntrepriseBean lieuEntrepriseBean;
-
+    
+    
+    public void sauvegarderVisite() {
+    System.out.println("Méthode sauvegarderVisite() appelée !");
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Visite sauvegardée avec succès !"));
+    // Logique de sauvegarde
+   }
     // Récupérer la liste des lieux depuis la base de données
     public List<Lieu> getListeLieux() {
         return lieuEntrepriseBean.listerTousLesLieux();
@@ -59,7 +73,16 @@ public class LieuBean implements Serializable {
     }
 
     // Getters et Setters
-    public int getIdLieu() { return idLieu; }
+    
+    public int getSelectedLieu() { return selectedLieu; }
+
+    public void setSelectedLieu(int selectedLieu) {
+        this.selectedLieu = selectedLieu;
+    }
+
+    public int getIdLieu() {
+        return idLieu;
+    }
     public void setIdLieu(int idLieu) { this.idLieu = idLieu; }
 
     public String getNom() { return nom; }
@@ -73,4 +96,37 @@ public class LieuBean implements Serializable {
 
     public double getLongitude() { return longitude; }
     public void setLongitude(double longitude) { this.longitude = longitude; }
+    
+    
+    public void fetchWeatherMessage(Lieu l) {
+
+    if (l != null) {
+    // Appel au service web pour obtenir les données météorologiques
+
+    String serviceURL = "http://172.17.192.1:8080/j-weather/webapi/JarkartaWeather?latitude="+ l.getLatitude() + "&longitude=" + l.getLongitude();
+    
+    Client client = ClientBuilder.newClient();
+    String response = client.target(serviceURL)
+    .request(MediaType.TEXT_PLAIN)
+    .get(String.class);
+
+    // Enregistrement du message météo dans la variable weatherMessage
+    this.weatherMessage =response;
+}
+
+}
+
+    public void updateWeatherMessage(AjaxBehaviorEvent event) {
+
+    Lieu lieu=lieuEntrepriseBean.trouverLieuParId(selectedLieu);
+    this.fetchWeatherMessage(lieu);
+    }
+
+    public String getWeatherMessage() {
+    return weatherMessage;
+    }
+
+    public void setWeatherMessage(String weatherMessage) {
+        this.weatherMessage = weatherMessage;
+    }
 }

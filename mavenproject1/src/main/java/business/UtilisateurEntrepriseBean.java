@@ -10,10 +10,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
-/**
- *
- * @author dell
- */
+
 @Stateless
 @LocalBean
 public class UtilisateurEntrepriseBean {
